@@ -3,6 +3,7 @@ from flask import request, jsonify, render_template
 import requests
 import tempfile
 import webvtt
+import time
 
 app = flask.Flask(__name__)
 app.config['DEBUG'] = True
@@ -29,10 +30,17 @@ def get_loc(videoid, word):
     f.seek(0)
     # print(f.name)
     flag = 0
+    #temp_url = f'https://youtube.com/watch?v={videoid}&t={total_secs}' 
     try:
         for caption in webvtt.read(f.name):
             if word in caption.text.lower():
-                d['output'].append(caption.start)
+                #d['output'].append(caption.start)
+                temp_str = caption.start.split('.')[0] 
+                #00:01:29.856
+                time_obj = time.strptime(temp_str, '%H:%M:%S')
+                total_secs = int(time.strftime("%H", time_obj)) * 3600 + int(time.strftime("%M", time_obj)) * 60 + int(time.strftime("%S", time_obj))
+                temp_url = f'https://youtube.com/watch?v={videoid}&t={total_secs}' 
+                d['output'].append(temp_url)
                 flag = 1
                 # print(caption.start)
                 # print(caption.end)
