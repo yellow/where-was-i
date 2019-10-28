@@ -35,7 +35,9 @@ def get_loc(videoid, word):
             if word.lower() in caption.text.lower():
                 temp_str = caption.start.split(':')
                 seconds = int(temp_str[0]) * 3600 + int(temp_str[1]) * 60 + int(temp_str[2].split('.')[0])
+                print(f.name)
                 temp_url = f'https://youtube.com/watch?v={videoid}&t={seconds}' 
+                return f'<iframe width="1280" height="720" src="https://www.youtube.com/embed/{ videoid }?start={ seconds }" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
                 d['output'].append()
                 flag = 1
                 # print(caption.start)
