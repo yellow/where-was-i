@@ -34,7 +34,7 @@ def get_loc(videoid, word):
         for caption in webvtt.read(f.name):
             if word.lower() in caption.text.lower():
                 temp_str = caption.start.split(':')
-                seconds = int(temp_str[0]) * 3600 + int(temp_str[1]) * 60 + int(temp_str[2])
+                seconds = int(temp_str[0]) * 3600 + int(temp_str[1]) * 60 + int(temp_str[2].split('.')[0])
                 temp_url = f'https://youtube.com/watch?v={videoid}&t={seconds}' 
                 d['output'].append()
                 flag = 1
